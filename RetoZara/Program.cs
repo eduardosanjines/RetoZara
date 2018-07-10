@@ -42,7 +42,7 @@ namespace RetoZara
                 {
                     if (row[1].Contains("."))
                     {
-                            //reemplazo el punto por la coma
+                       //reemplazo el punto por la coma
                        reempl = row[1].Replace(punto, coma);
                        d = Convert.ToDecimal(reempl);
                        redondeado=  Math.Round(d);
