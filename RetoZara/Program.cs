@@ -49,6 +49,7 @@ namespace RetoZara
                     }
                 }
             }
+            //cierro fichero
             file.Close();
             Console.WriteLine(resultado_total);
             Console.ReadKey();
