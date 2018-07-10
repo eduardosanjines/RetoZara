@@ -9,44 +9,49 @@ namespace RetoZara
 {
     class Program
     {
+
         static void Main(string[] args)
-  
+
         {
-            
             int i = 0;
             string line;
-            Char delimitador = ';';
+            Char colum = ';';
+            Char punto = '.';
+            Char coma = ',';
             String[] row;
-            String fecha, cierre, apertura;
-            float fcierre;
+            decimal d = 0;
+            decimal resultado = 0;
+            decimal redondeado = 0;
+            decimal resultado_total = 0;
+            decimal porcentaje = 0;
+            string reempl;
 
             StreamReader file = new StreamReader(@"stocks-ITX.csv");
 
             while ((line = file.ReadLine()) != null)
             {
-                row = line.Split(delimitador);
+                //parseo por columna delimitando por ";"
+                row = line.Split(colum);
+                //obtengo el % y le sumo al resultado
+                resultado = resultado + redondeado;
+                porcentaje = resultado *2 / 100;
+                resultado_total = resultado - porcentaje;
                 i++;
 
-                fecha = row[0];
-                cierre = row[1];
-                apertura = row[2];
                 if (!row[0].Equals("Fecha") || !row[1].Equals("Cierre") || !row[2].Equals("Apertura"))
                 {
-                    fcierre = Convert.ToSingle(cierre);
-                  //  Console.WriteLine(fcierre);
-                    Console.WriteLine(Math.Round(fcierre, 2));
+                    if (row[1].Contains("."))
+                    {
+                            //reemplazo el punto por la coma
+                       reempl = row[1].Replace(punto, coma);
+                       d = Convert.ToDecimal(reempl);
+                       redondeado=  Math.Round(d);
+                    }
                 }
             }
-         
-           
-          
-            
-            /*
             file.Close();
-            System.Console.WriteLine("There were {0} lines.", counter);
-            // Suspend the screen.  
-            System.Console.ReadLine();
-            */
-        }
+            Console.WriteLine(resultado_total);
+            Console.ReadKey();
+        }  
     }
 }
