@@ -19,10 +19,10 @@ namespace RetoZara
             Char punto = '.';
             Char coma = ',';
             String[] row;
-            decimal d = 0;
+            decimal convertTodecimal = 0;
             decimal resultado = 0;
-            decimal redondeado = 0;
-            decimal redondporciento = 0;
+            decimal round = 0;
+            decimal roundPercent = 0;
             decimal resultado_total = 0;
             decimal porcentaje = 0;
             string reempl;
@@ -33,11 +33,11 @@ namespace RetoZara
             {
                 //parseo por columna delimitando por ";"
                 row = line.Split(colum);
-                //obtengo el % y le sumo al resultado
-                resultado = resultado + redondeado;
+                //obtengo el resultado de todas las columnas (Cierre)
+                resultado = resultado + round;
                 porcentaje = resultado *2 / 100;
-                redondporciento = Math.Round(porcentaje, 3);
-                resultado_total = resultado - redondporciento;
+                roundPercent = Math.Round(porcentaje, 3);
+                resultado_total = resultado - roundPercent;
                 i++;
 
                 if (!row[0].Equals("Fecha") || !row[1].Equals("Cierre") || !row[2].Equals("Apertura"))
@@ -46,15 +46,15 @@ namespace RetoZara
                     {
                        //reemplazo el punto por la coma
                        reempl = row[1].Replace(punto, coma);
-                       d = Convert.ToDecimal(reempl);
-                       redondeado=  Math.Round(d, 3);
+                       convertTodecimal = Convert.ToDecimal(reempl);
+                       round=  Math.Round(convertTodecimal, 3);
                     }
                 }
             }
             //cierro fichero
             file.Close();
             Console.WriteLine("\nResultado sin restarle el tanto por ciento: "+resultado);
-            Console.WriteLine("\nPorcentaje redondeado: " + redondporciento);
+            Console.WriteLine("\nPorcentaje del 2% redondeado: " + roundPercent);
             Console.WriteLine("\nResultado total: "+resultado_total);
             //muestro por consola el resultado
             Console.ReadKey();
