@@ -15,29 +15,16 @@ namespace RetoZara
         {
             int i = 0;
             string line;
-            Char colum = ';';
-            Char punto = '.';
-            Char coma = ',';
             String[] row;
-            decimal convertTodecimal = 0;
             decimal resultado = 0;
             decimal round = 0;
-            decimal roundPercent = 0;
-            decimal resultado_total = 0;
-            decimal porcentaje = 0;
-            string reempl;
 
             StreamReader file = new StreamReader(@"stocks-ITX.csv");
 
             while ((line = file.ReadLine()) != null)
             {
                 //parseo por columna delimitando por ";"
-                row = line.Split(colum);
-                //obtengo el resultado de todas las columnas (Cierre)
-                resultado = resultado + round;
-                porcentaje = resultado *2 / 100;
-                roundPercent = Math.Round(porcentaje, 3);
-                resultado_total = resultado - roundPercent;
+                row = line.Split(';');
                 i++;
 
                 if (!row[0].Equals("Fecha") || !row[1].Equals("Cierre") || !row[2].Equals("Apertura"))
@@ -45,18 +32,22 @@ namespace RetoZara
                     if (row[1].Contains("."))
                     {
                        //reemplazo el punto por la coma
-                       reempl = row[1].Replace(punto, coma);
-                       convertTodecimal = Convert.ToDecimal(reempl);
-                       round=  Math.Round(convertTodecimal, 3);
+                       string reempl = row[1].Replace('.', ',');
+                        //Convierto a Decimal
+                       decimal convertTodecimal = Convert.ToDecimal(reempl);
+                        //Calculo cuantas acciones puede comprar
+                       decimal acciones = 49 / convertTodecimal;
+                        //redondeo el resultado de las acciones
+                       round = Math.Round(acciones, 3);
                     }
                 }
+                
+                resultado = resultado + round;
+
             }
             //cierro fichero
             file.Close();
-            Console.WriteLine("\nResultado sin restarle el tanto por ciento: "+resultado);
-            Console.WriteLine("\nPorcentaje del 2% redondeado: " + roundPercent);
-            Console.WriteLine("\nResultado total: "+resultado_total);
-            //muestro por consola el resultado
+            Console.WriteLine("\nResultado: "+resultado);
             Console.ReadKey();
         }  
     }
