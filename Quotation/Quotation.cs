@@ -53,16 +53,19 @@ namespace Quotation
 
 
         public void CheckDateBuy() {
-
-            List<DateTime> LisDates = new List<DateTime>();
             
+            List<DateTime> LisDates = new List<DateTime>();
+            decimal acciones = 0;
+            decimal totalAcciones = 0;
+            decimal suma = 0;
+            DateTime DiaInvertido;
+            int mesActual = 0;
+
             foreach (Cotizacion cp in listColumns)
                 {
                     LisDates.Add(cp.Fecha);   
                 }
-            DateTime DiaInvertido;
-            int mesActual = 0;
-
+ 
             foreach (DateTime dt in LisDates)
             {
                 if (mesActual != dt.Month)
@@ -71,12 +74,9 @@ namespace Quotation
                     DiaInvertido = LastThurstDay(dt).AddDays(1);
                     Console.WriteLine("Invierto el dia: " + DiaInvertido);
                     listColumns.Reverse();
+
                     foreach (Cotizacion ct in listColumns)
                     {
-                        decimal acciones = 0;
-                        decimal totalAcciones = 0;
-                        decimal suma = 0;
-
                         if (ct.Fecha == DiaInvertido)
                         {
                             ListaInversion = new List<Cotizacion>
@@ -84,9 +84,8 @@ namespace Quotation
                                 new Cotizacion(ct.Fecha, ct.Apertura, ct.Cierre)
                             };
 
-                            Console.WriteLine("Apertura: "+ct.Apertura + " Fecha: "+ct.Fecha);
-
-                            
+                            Console.WriteLine("Fecha: " + ct.Fecha + " Apertura: " +ct.Apertura);
+  
                             acciones = 49 / ct.Apertura;
                             totalAcciones = Math.Round(acciones, 3);
                             Console.WriteLine("Total Acciones: " + totalAcciones);
@@ -94,16 +93,15 @@ namespace Quotation
                             suma = suma + totalAcciones;
                             Console.WriteLine("Suma :" + suma);
                             resultado = suma * Convert.ToDecimal(29.17);
-                            
+                            Console.WriteLine("Resultado total: " + resultado);
                         }
                     }
 
-                    Console.WriteLine("Resultado total: " + resultado);
+                    
                 }
                 
             }
 
-            
             Console.ReadKey();
         }
     }
