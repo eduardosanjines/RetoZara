@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7BD68BE2-E318-4F85-9E38-C1F6FD143A67}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>RetoZara</RootNamespace>
-    <AssemblyName>RetoZara</AssemblyName>
+    <ProjectGuid>{9BD7AEFE-F60E-4B00-ABB8-38B374493F7C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FileManager</RootNamespace>
+    <AssemblyName>FileManager</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,25 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="OpenFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DiaCotizacion\DiaCotizacion.csproj">
-      <Project>{be5d70e0-7dd7-425f-8efd-896ea474f8ce}</Project>
-      <Name>DiaCotizacion</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FileManager\FileManager.csproj">
-      <Project>{9bd7aefe-f60e-4b00-abb8-38b374493f7c}</Project>
-      <Name>FileManager</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Quotation\Quotation.csproj">
-      <Project>{46df3f5e-aacf-4292-bc08-9b7998e6c8dc}</Project>
-      <Name>Quotation</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
