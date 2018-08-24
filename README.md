@@ -14,4 +14,4 @@ Test actualizados.
 	- Hemos evaluado nuestra aplicación para que a cada uno de nosotros nos de el mismo resultado (Calculo a mano)
 
 Resultado: 
-	- Mostramos que fechas se invierte y el importe total.
+	- Mostramos que fechas se invierten y el importe total.
