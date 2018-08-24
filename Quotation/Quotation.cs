@@ -13,46 +13,60 @@ namespace Quotation
     public class Quotation
     {
         OpenFile _openFile = new OpenFile();
-        readonly string path = "stocks-ITX.csv";
-        List<Cotizacion> listColumns = new List<Cotizacion>();
+        
+        List<Cotizacion> listBuy = new List<Cotizacion>();
         List<Cotizacion> ListaInversion;
         Decimal resultado = 0;
 
         public Quotation() {
         }
 
-        public List<Cotizacion>GetColumns() {
+        public List<Cotizacion> GetColumns() {
 
+            string path = "stocks-ITX.csv";
             string line;
+
             StreamReader sr = _openFile.OpenCSV(path);
 
             while ((line = sr.ReadLine()) != null) {
+
                 string [] row = line.Split(';');
 
                 if (!row[0].Equals("Fecha")) {
+
                     DateTime Fecha = DateTime.ParseExact(row[0], "dd-MMM-yyyy", CultureInfo.CreateSpecificCulture("es-US"));
                     Decimal cierre = Convert.ToDecimal(row[1].Replace('.', ','));
                     Decimal apertura = Convert.ToDecimal(row[2].Replace('.', ','));
-                    listColumns.Add(new Cotizacion(Fecha, apertura, cierre));
+
+                    listBuy.Add(new Cotizacion(Fecha, apertura));
+
                 }
             }
 
-            //Obtengo la lista de la Fecha, apertura y cierre. 
-            return listColumns;
+            //Obtengo la lista de la Fecha y apertura. 
+            return listBuy;
 
         }
 
-        public DateTime LastThurstDay(DateTime date)
+        /// <summary>
+        /// Metodo que retorna el último jueves de cada mes. 
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns>Ultimo Jueves de cada mes</returns>
+        public DateTime UltimoJuevesDelMes(DateTime date)
         {
             var lastDayOfMonth = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
 
+            ////DayOfWeek = Sunday (El ultimo día del mes fue Sunday para el 2017)
             while (lastDayOfMonth.DayOfWeek != DayOfWeek.Thursday)
                 lastDayOfMonth = lastDayOfMonth.AddDays(-1);
+
             return lastDayOfMonth;
+
         }
 
 
-        public void CheckDateBuy() {
+        public void FechaDeCompra() {
             
             List<DateTime> LisDates = new List<DateTime>();
             decimal acciones = 0;
@@ -61,9 +75,12 @@ namespace Quotation
             DateTime DiaInvertido;
             int mesActual = 0;
 
-            foreach (Cotizacion cp in listColumns)
+
+            foreach (Cotizacion cp in listBuy)
                 {
-                    LisDates.Add(cp.Fecha);   
+                    //Agregamos a la lista todas las fechas del excel
+                    LisDates.Add(cp.Fecha);
+
                 }
  
             foreach (DateTime dt in LisDates)
@@ -71,37 +88,47 @@ namespace Quotation
                 if (mesActual != dt.Month)
                 {
                     mesActual = dt.Month;
-                    DiaInvertido = LastThurstDay(dt).AddDays(1);
-                    Console.WriteLine("Invierto el dia: " + DiaInvertido);
-                    listColumns.Reverse();
 
-                    foreach (Cotizacion ct in listColumns)
-                    {
-                        if (ct.Fecha == DiaInvertido)
+                    //Obtenemos el día invertido
+                    DiaInvertido = UltimoJuevesDelMes(dt).AddDays(1);
+                   // DiaInvertido = UltimoDiaDelMes(dt);
+
+                    foreach (Cotizacion ct in listBuy)
                         {
-                            ListaInversion = new List<Cotizacion>
+
+                            //Si la fecha que está en el excel (lista) es igual al dia invertido
+                            if (ct.Fecha == DiaInvertido)
                             {
-                                new Cotizacion(ct.Fecha, ct.Apertura, ct.Cierre)
+                                ListaInversion = new List<Cotizacion>
+                            {
+                                new Cotizacion(ct.Fecha, ct.Apertura)
                             };
 
-                            Console.WriteLine("Fecha: " + ct.Fecha + " Apertura: " +ct.Apertura);
-  
-                            acciones = 49 / ct.Apertura;
-                            totalAcciones = Math.Round(acciones, 3);
-                            Console.WriteLine("Total Acciones: " + totalAcciones);
-                            
-                            suma = suma + totalAcciones;
-                            Console.WriteLine("Suma :" + suma);
-                            resultado = suma * Convert.ToDecimal(29.17);
-                            Console.WriteLine("Resultado total: " + resultado);
+                            if(ct.Fecha == DiaInvertido)
+                            {
+                                if(ct.Fecha.DayOfWeek == DayOfWeek.Thursday)
+                                {
+                                    ListaInversion = new List<Cotizacion>
+                                }
+                            }
+
+                                acciones = 49 / ct.Apertura;
+                                totalAcciones = Math.Round(acciones, 3);
+
+                                Console.WriteLine("Fecha: " + ct.Fecha + " Apertura: " + ct.Apertura + " " + " Total Acciones: " + totalAcciones);
+
+                                suma = suma + totalAcciones;
+                                resultado = suma * Convert.ToDecimal(29.170);
+                                
+                            }
                         }
-                    }
 
                     
                 }
                 
             }
-
+            Console.WriteLine("Suma :" + suma);
+            Console.WriteLine("Resultado total: " + resultado);
             Console.ReadKey();
         }
     }

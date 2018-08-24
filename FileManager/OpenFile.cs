@@ -9,7 +9,6 @@ namespace FileManager
 {
     public class OpenFile
     {
-
         public StreamReader OpenCSV(string path) {
 
             StreamReader sr = new StreamReader(path);

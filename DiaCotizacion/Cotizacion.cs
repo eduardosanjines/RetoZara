@@ -12,12 +12,20 @@ namespace DiaCotizacion
         public decimal Apertura { get; set; }
         public decimal Cierre { get; set; }
 
-        public Cotizacion(DateTime date, decimal apertura, decimal cierre)
+        public Cotizacion(DateTime date, decimal cierre, decimal apertura)
         {
             Fecha = date;
             Apertura = apertura;
             Cierre = cierre;
         }
+
+        public Cotizacion(DateTime date, decimal apertura)
+        {
+            Fecha = date;
+            Apertura = apertura;
+        }
+
+
 
     }
 }
