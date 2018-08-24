@@ -11,7 +11,9 @@ Calculos que se han hecho:
 	- Comprobar que la fecha de nuestro algoritmo corresponda con la fecha del excel. 
 
 Test actualizados.
+
 	- Hemos evaluado nuestra aplicación para que a cada uno de nosotros nos de el mismo resultado (Calculo a mano)
 
 Resultado: 
+
 	- Mostramos que fechas se invierten y el importe total.
