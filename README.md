@@ -1,19 +1,14 @@
 # RetoZara
 Mi firts Challenge (Reto de Zara)
 
-El primer día había parseado por ; para dividir por columnas y extraer lo que necesitaba para hacer los calculos. 
-- Leyendo el reto he redondeado antes del resultado total. 
-- He aplicado Clean Code entre la Clase principal para poder declarar las variables de manera limpia.
-- He comentado en cada momento lo que estaba haciendo y aplicando. 
+El Reto Zara es el primero reto que la compañia hace a todos los programadores que están interesados en acceder a un puesto de trabajo como desarrollador. 
 
-EL segundo día volviendo a leer el enunciado me dí cuenta que lo estaba haciendo incorrectamente y estaba aplicando al resultado solo el cierre y no la apertura.
-- Tampoco estaba aplicando el filtro de fecha (el ultimo jueves de cada mes). 
+Calculos que se han hecho:
 
-He entendido el reto pero por falta de tiempo me ha faltado aplicar el filtro por fecha
-- Leyendo sobre las fechas he estado apunto de poder aplicarlo.
-- Nunca había trabajado con fechas pero La Clase DateTime me da la oportunidad de trabajar con ello. 
+	- Redondear el cierre de cada mes antes de calcularlo (redondear en 3 decimales)
+	- Recorda que el broker se lleva el 2% de nuestra inversión. 
+	- Comprobar correctamente que esté calculando solo los días que incluyan el último jueves de cada més + 1 día (día siguiente cuando recibe la nomina)
+	- Comprobar que la fecha de nuestro algoritmo corresponda con la fecha del excel. 
 
-
-Verdaderamente la operativa para aplicar la gestión de las acciones y resultado es simple, pero trabajar con fechas ha sido y es lo más complicado. 
-
-Nunca he trabajado con ficheros CSV pero he aprendido a leerlos y extraer sus datos. 
+Test actualizados.
+	- Hemos evaluado nuestra aplicación para que a cada uno de nosotros nos de el mismo resultado (Calculo a mano)
